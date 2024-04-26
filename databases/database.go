@@ -18,20 +18,18 @@ type (
 
 // create new databse
 func NewDatabase() *Database {
-	return &Database{
-		Counter: 0,
-	}
+	return &Database{}
 }
 
 // store data
 func (db *Database) Store(key string, duration int64) {
-	db.Counter++
 	val, loaded := db.tables.Load(key)
 	if loaded {
 		// If the key exists, stop the existing timer
 		timer := val.(*time.Timer)
 		if !timer.Stop() {
 			// If the timer has already expired, drain the channel
+			// thats mean channel has expired not used need to create new one
 			select {
 			case <-timer.C:
 				slog.Info("timer expired before resetting")
