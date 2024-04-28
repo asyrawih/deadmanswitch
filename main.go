@@ -49,7 +49,7 @@ func main() {
 				switch evt := e.(type) {
 				case *kafka.Message:
 					// cek if have a message
-					go d.Store(string(evt.Key), 30000)
+					go d.Store(string(evt.Key), 2000)
 					go deadman.Run(string(evt.Key))
 					// go d.Reset(string(evt.Key), 100)
 

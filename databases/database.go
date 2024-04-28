@@ -33,7 +33,10 @@ func (db *Database) Store(key string, duration int64) {
 			select {
 			case <-timer.C:
 				slog.Info("timer expired before resetting")
+				db.tables.Delete(key)
 			default:
+				slog.Info("delete key")
+				db.tables.Delete(key)
 			}
 		}
 	}
@@ -44,6 +47,8 @@ func (db *Database) Store(key string, duration int64) {
 
 // delete data from tables
 func (db *Database) Delete(key string) {
+	slog.Info("delete key: " + key)
+	db.tables.Delete(key)
 }
 
 // get data from tables

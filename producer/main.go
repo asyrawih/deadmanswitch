@@ -52,7 +52,7 @@ func main() {
 	}
 
 	// Send tasks to workers
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 100000; i++ {
 		tasks <- i
 	}
 
